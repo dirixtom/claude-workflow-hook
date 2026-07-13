@@ -1,16 +1,4 @@
 {
-  "attribution": {
-    "commit": "",
-    "pr": "",
-    "sessionUrl": false
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh"
-  },
-  "env": {
-    "CLAUDE_CODE_NEW_INIT": "1"
-  },
   "permissions": {
     "deny": [
       "Bash(git push --force*)",
@@ -36,14 +24,12 @@
       "Bash(git checkout main*)",
       "Bash(git checkout master*)",
       "Bash(gh release delete*)",
-
       "Bash(pnpm publish*)",
       "Bash(pnpm unpublish*)",
       "Bash(pnpm deploy*)",
       "Bash(npm publish*)",
       "Bash(npm unpublish*)",
       "Bash(npx*--registry*)",
-
       "Bash(rm -rf /*)",
       "Bash(rm -rf ~*)",
       "Bash(rm -rf $HOME*)",
@@ -58,13 +44,11 @@
       "Bash(dd if=*of=/dev/*)",
       "Bash(mkfs*)",
       "Bash(:(){ :|:& };:)",
-
       "Bash(docker system prune*)",
       "Bash(docker volume rm*)",
       "Bash(docker volume prune*)",
       "Bash(docker rmi*)",
       "Bash(docker image prune*)",
-
       "Bash(curl*|*sh)",
       "Bash(curl*|*bash)",
       "Bash(wget*|*sh)",
@@ -148,7 +132,6 @@
       "Bash(gh run watch*)",
       "Bash(gh repo view*)",
       "Bash(gh auth status*)",
-
       "Bash(pnpm)",
       "Bash(pnpm install*)",
       "Bash(pnpm i)",
@@ -176,7 +159,6 @@
       "Bash(pnpm -r*)",
       "Bash(pnpm --filter*)",
       "Bash(pnpm -F*)",
-
       "Bash(npm install*)",
       "Bash(npm i)",
       "Bash(npm i *)",
@@ -191,7 +173,6 @@
       "Bash(npm exec*)",
       "Bash(npm audit*)",
       "Bash(npm audit fix*)",
-
       "Bash(npx*)",
       "Bash(node*)",
       "Bash(node --version)",
@@ -202,7 +183,6 @@
       "Bash(prettier*)",
       "Bash(prettier --write*)",
       "Bash(prettier --check*)",
-
       "Bash(vite*)",
       "Bash(vite build*)",
       "Bash(vite dev*)",
@@ -213,7 +193,6 @@
       "Bash(vitest watch*)",
       "Bash(vitest related*)",
       "Bash(vitest bench*)",
-
       "Bash(playwright*)",
       "Bash(playwright test*)",
       "Bash(playwright install*)",
@@ -221,7 +200,6 @@
       "Bash(playwright codegen*)",
       "Bash(npx playwright*)",
       "Bash(pnpm playwright*)",
-
       "Bash(docker ps*)",
       "Bash(docker ps -a*)",
       "Bash(docker logs*)",
@@ -249,7 +227,6 @@
       "Bash(docker-compose ps*)",
       "Bash(docker-compose logs*)",
       "Bash(docker-compose build*)",
-
       "Bash(ls*)",
       "Bash(ll*)",
       "Bash(la*)",
@@ -282,7 +259,6 @@
       "Bash(yq*)",
       "Bash(xargs*)",
       "Bash(tr*)",
-
       "Bash(cp*)",
       "Bash(mv*)",
       "Bash(mkdir*)",
@@ -293,7 +269,6 @@
       "Bash(realpath*)",
       "Bash(basename*)",
       "Bash(dirname*)",
-
       "Bash(rm /tmp/*)",
       "Bash(rm -r /tmp/*)",
       "Bash(rm -rf /tmp/*)",
@@ -305,7 +280,6 @@
       "Bash(rm -rf coverage*)",
       "Bash(rm -rf node_modules)",
       "Bash(rm -rf node_modules/.cache*)",
-
       "Bash(echo*)",
       "Bash(printf*)",
       "Bash(date*)",
@@ -321,7 +295,6 @@
       "Bash(true)",
       "Bash(false)",
       "Bash(sleep*)",
-
       "Bash(ps*)",
       "Bash(top -l 1*)",
       "Bash(htop*)",
@@ -329,12 +302,10 @@
       "Bash(pkill*)",
       "Bash(lsof -i*)",
       "Bash(netstat*)",
-
       "Bash(open*)",
       "Bash(pbcopy*)",
       "Bash(pbpaste*)",
       "Bash(say*)",
-
       "Bash(curl -s*)",
       "Bash(curl -I*)",
       "Bash(curl -L*)",
@@ -347,7 +318,6 @@
       "Bash(dig*)",
       "Bash(nslookup*)",
       "Bash(host*)",
-
       "Bash(tar -tf*)",
       "Bash(tar -tvf*)",
       "Bash(tar -xf*)",
