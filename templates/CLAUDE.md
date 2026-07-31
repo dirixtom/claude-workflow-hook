@@ -21,6 +21,8 @@ Default stack: TanStack Router (file-based, type-safe) · TanStack Query via loa
 
 When using Tailwind, always verify and install the latest version. Fetch the framework guide before scaffolding: [TanStack Start](https://tailwindcss.com/docs/installation/framework-guides/tanstack-start) · [Astro](https://tailwindcss.com/docs/installation/framework-guides/astro).
 
+Terraform needs to be OpenTofu when possible.
+
 ## Tests
 
 **Runner:** Vitest for unit/integration, Playwright for E2E. Never Jest.
@@ -33,10 +35,16 @@ Test what can break — server functions, loaders, validators, state transitions
 - **TanStack Start + prerendering** — both of the above; also assert prerendered routes return static HTML with no client runtime.
 - **React Email** — Vitest snapshots for markup; assert dynamic props (links, names, conditionals) render correctly.
 
+## Containers
+
+Runtime is **OrbStack**, not Docker Desktop. The `docker` / `docker compose` CLI is unchanged — use it normally.
+Never suggest installing or starting Docker Desktop, Colima, or `docker-machine`. If the daemon is unreachable, the fix is `orb start`.
+Docker context: `orbstack`. Kubernetes: `orb start k8s`. VMs: `orb` / `orbctl`.
+
 ## Environment Variables & Secrets
 
-Never read, reveal or output the contents of .env/.env.local by any means. Work only with `.env.example`.
-Never commit real secrets. Keep `.env*` in `.gitignore` on every level.
+Never read, reveal or output the contents of .env/.env.local/terraform.tfvars by any means. Work only with `.env.example` and 
+Never commit real secrets. Keep `.env*` and `*.tfvars` in `.gitignore` on every level.
 Maintain `.env.example` with placeholder secrets or project related values.
 Accommodate for both `.env` and `.env.local` use.
 
@@ -45,8 +53,7 @@ Accommodate for both `.env` and `.env.local` use.
 Never commit directly to `main`/`master`. Always branch first, pull latest `main` beforehand.
 Branch naming: `feat/`, `fix/`, `chore/`, `docs/`, `tree/` + short description, always name a branch after the feature being implemented.
 Never force-push to `main`. Never `--no-verify` without explicit instruction.
-Don't merge PRs or delete branches unless explicitly asked. One concern per PR.
 
 ## Compact Instructions
 
-When compacting: preserve the full list of modified files, test output, errors, and pending decisions.
+When compacting: preserve the full list of modified files, errors, and pending decisions.
