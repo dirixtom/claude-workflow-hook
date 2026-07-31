@@ -6,9 +6,21 @@ Automatic Claude Code project bootstrapping that survives handoff to cloud, mobi
 
 ## How it works
 
-1. **SessionStart hook** (`~/.claude/hooks/bootstrap-project.sh`, installed on each of your computers): when you open a git repo that has no `CLAUDE.md`, it injects instructions telling Claude to fetch the templates from this repo via `gh api`, tailor `CLAUDE.md` to the project (strip irrelevant sections, add stack/build/test info discovered from the codebase), write a project-appropriate `.claude/settings.json`, and offer to commit both.
+1. **SessionStart hook** (`~/.claude/hooks/bootstrap-project.sh`, installed on each of your computers): when you open a git repo that has no `CLAUDE.md`, it injects instructions telling Claude to fetch the templates from this repo, tailor `CLAUDE.md` to the project (strip irrelevant sections, add stack/build/test info discovered from the codebase), write a project-appropriate `.claude/settings.json`, and offer to commit both.
 2. **Committed config as handoff vehicle**: once `CLAUDE.md` and `.claude/settings.json` are committed, every environment that clones the repo — cloud, mobile, another laptop — picks them up automatically. Nothing machine-local is required after that.
 3. **`/sync-claude-config` slash command**: manual trigger for environments without the hook (cloud/mobile) and for merging template updates into repos that already have a `CLAUDE.md`.
+
+### Template fetch transports
+
+Both the hook and the slash command try three transports in order, so they work whether or not the `gh` CLI exists:
+
+| Order | Transport | Where it applies |
+|---|---|---|
+| a | `gh api` | Local machines with authenticated `gh` |
+| b | `mcp__github__get_file_contents` | Cloud, mobile and web sessions, which have the GitHub MCP server but no `gh` CLI |
+| c | Local clone of this repo | Fallback when neither is reachable |
+
+For (b), the schema is loaded on demand via `ToolSearch` (`select:mcp__github__get_file_contents`); if the session reports this repo out of scope, it is attached with `mcp__claude-code-remote__add_repo` and retried. Bootstrapping is only skipped when all three fail, and Claude reports which ones it tried.
 
 ## Install (once per computer)
 
@@ -28,7 +40,7 @@ On first run it also imports your existing `~/.claude/CLAUDE.md` and `~/.claude/
 |---|---|
 | New or unconfigured project (local) | Nothing — open it in Claude Code, the hook bootstraps it |
 | Existing projects in bulk | `bash scripts/batch-bootstrap.sh ~/Development/git-personal` |
-| Cloud / mobile / no hook installed | Run `/sync-claude-config` in the project (needs the command installed, or just paste its instructions) |
+| Cloud / mobile / no hook installed | Run `/sync-claude-config` in the project (needs the command installed, or just paste its instructions) — it falls back to the GitHub MCP server where `gh` is absent |
 | Project already has CLAUDE.md, template changed | `/sync-claude-config` merges template updates, keeping project-specific content |
 | Update the template | Edit `templates/*`, commit, push — all future bootstraps/syncs use it |
 
@@ -48,3 +60,5 @@ install.sh                    Idempotent installer
 - Settings precedence: `~/.claude/settings.json` (user) < `.claude/settings.json` (project, committed) < `.claude/settings.local.json` (machine-local, gitignored). Arrays like `permissions.allow` are merged, so project settings only need project-specific rules.
 - The bootstrap instructions explicitly tell Claude to strip the SessionStart hook itself from project settings, so the hook never duplicates into repos.
 - The hook only fires in git repos without a `CLAUDE.md`; configured projects are untouched.
+- `install.sh` needs `gh` and `python3`, but the hook and slash command it installs do not — they fall back to the GitHub MCP server. Only the installer itself is `gh`-bound (it creates and pushes this repo).
+- The hook's `additionalContext` is interpolated into JSON by a `printf`, so when editing `CONTEXT` in `hooks/bootstrap-project.sh` avoid double quotes, backslashes, backticks and newlines.
