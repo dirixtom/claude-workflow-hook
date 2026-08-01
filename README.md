@@ -34,6 +34,17 @@ Requires `gh` (authenticated) and `python3`. The installer is idempotent — saf
 
 On first run it also imports your existing `~/.claude/CLAUDE.md` and `~/.claude/settings.json` into `templates/`. **Review `templates/settings.json` before pushing** — remove secrets or machine-specific paths.
 
+### Updating an existing install
+
+Not everything in this repo propagates the same way, which matters when you change it:
+
+| You changed | How it reaches your machines |
+|---|---|
+| `templates/*` | Instantly — templates are fetched from GitHub at bootstrap/sync time, so nothing to reinstall |
+| `hooks/bootstrap-project.sh`, `commands/sync-claude-config.md` | **Per computer:** `git pull && bash install.sh` — `install.sh` copies these into `~/.claude/`, so machines keep running the old copy until you re-run it |
+
+Cloud, mobile and web sessions are never stale: they read the templates and the sync instructions straight from the repo, so they pick up changes on the next run.
+
 ## Usage
 
 | Scenario | What to do |
@@ -42,7 +53,8 @@ On first run it also imports your existing `~/.claude/CLAUDE.md` and `~/.claude/
 | Existing projects in bulk | `bash scripts/batch-bootstrap.sh ~/Development/git-personal` |
 | Cloud / mobile / no hook installed | Run `/sync-claude-config` in the project (needs the command installed, or just paste its instructions) — it falls back to the GitHub MCP server where `gh` is absent |
 | Project already has CLAUDE.md, template changed | `/sync-claude-config` merges template updates, keeping project-specific content |
-| Update the template | Edit `templates/*`, commit, push — all future bootstraps/syncs use it |
+| Update the template | Edit `templates/*`, commit, push — all future bootstraps/syncs use it, no reinstall needed |
+| Update the hook or slash command | Edit, commit, push — then `git pull && bash install.sh` on each computer (see [Updating an existing install](#updating-an-existing-install)) |
 
 ## Repo layout
 
