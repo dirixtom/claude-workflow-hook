@@ -2,7 +2,7 @@
 
 Automatic Claude Code project bootstrapping that survives handoff to cloud, mobile, or other machines.
 
-**Template repo:** `dirixtom/claude-workflow-hook` (private) — the single source of truth for `templates/CLAUDE.md` and `templates/settings.json`.
+**Template repo:** `dirixtom/claude-workflow-hook` — the single source of truth for `templates/CLAUDE.md` and `templates/settings.json`.
 
 ## How it works
 
