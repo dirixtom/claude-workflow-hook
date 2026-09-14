@@ -25,7 +25,15 @@ export REPO REPO_OWNER REPO_NAME
 # quotes, backslashes, backticks, $VAR and newlines are all safe literals.
 # Repo references use {{REPO}} / {{REPO_OWNER}} / {{REPO_NAME}}, substituted at
 # emit time. Do not switch this to an unquoted heredoc.
-CONTEXT="$(cat <<'EOF'
+#
+# Read the body with `read` rather than CONTEXT="$(cat <<'EOF' ... )": macOS ships
+# bash 3.2, whose $( ) scanner tracks quote state without understanding that a
+# quoted heredoc body is literal. The apostrophe in "the user's task" below left
+# it mid-string, so it ran past the closing paren and the hook aborted with a
+# syntax error on every macOS session. `read` uses no command substitution, so
+# the body may contain any character. `read -d ''` stops at EOF and returns 1,
+# hence the `|| true`.
+IFS= read -r -d '' CONTEXT <<'EOF' || true
 BOOTSTRAP REQUIRED: This project has no CLAUDE.md or .claude/settings.json. Before starting the user's task, scaffold them from the template repo.
 
 Step 1: fetch templates/CLAUDE.md from {{REPO}} using whichever transport works in this environment, in order:
@@ -41,7 +49,8 @@ Step 4: show the user both files for review and offer to commit them so other ma
 
 Only skip bootstrapping if every transport in Step 1 fails - then tell the user which ones you tried and why each failed.
 EOF
-)"
+# `read` keeps the heredoc's trailing newline; the old $(cat ...) stripped it.
+CONTEXT="${CONTEXT%$'\n'}"
 export CONTEXT
 
 # Emit the SessionStart payload. json.dumps handles all escaping, so a malformed
