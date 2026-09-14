@@ -54,6 +54,25 @@ Never commit directly to `main`/`master`. Always branch first, pull latest `main
 Branch naming: `feat/`, `fix/`, `chore/`, `docs/`, `tree/` + short description, always name a branch after the feature being implemented.
 Never force-push to `main`. Never `--no-verify` without explicit instruction.
 
+## Session naming
+
+Session titles are short, descriptive and **start with a verb-led phrase** that names the
+work being done — not a noun-pile echo of the prompt's keywords.
+
+Shape: `<Verb phrase> <what it is about>`. Typical openers: `Spec ...`,
+`Implementation of ...`, `Report on ...`, `Analyze ...`, `Review ...`, `Grill ...`,
+`Wayfinder ...`, `Bugfix ...`, `Deploy ...`, `Triage ...`.
+
+Name the session after the **subject of the work**, not the mechanics of the request. When
+the prompt points at an issue or a ticket, resolve what that issue actually is and name the
+feature — an issue number on its own says nothing.
+
+| Prompt | Not this | This |
+| --- | --- | --- |
+| "Give me an overview of all issues and their dependencies" | `Repository issues dependency overview` | `Report on issue overview & dependencies` |
+| "Work the #185 map tickets" | `Map tickets #185` | `Implementation of <the feature #185 is about>` |
+| "#207" | `Issue #207` | `Bugfix of <what #207 is about>` |
+
 ## Compact Instructions
 
 When compacting: preserve the full list of modified files, errors, and pending decisions.
