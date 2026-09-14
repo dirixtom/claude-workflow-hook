@@ -41,7 +41,7 @@ Step 1: fetch templates/CLAUDE.md from {{REPO}} using whichever transport works 
   (b) GitHub MCP server, for cloud, mobile and web sessions that have no gh CLI: call mcp__github__get_file_contents with owner: {{REPO_OWNER}}, repo: {{REPO_NAME}}, path: templates/CLAUDE.md. Load its schema first via ToolSearch "select:mcp__github__get_file_contents" if needed, and if the repo is reported out of scope add it via mcp__claude-code-remote__add_repo with owner: {{REPO_OWNER}}, repo: {{REPO_NAME}} and retry.
   (c) a local clone of {{REPO}} if one exists on this machine: read from its templates directory.
 
-Step 2: inspect this codebase (stack, package manager, build/test/lint commands, folder structure) and write ./CLAUDE.md based on the template. Remove sections irrelevant to this repo and add a project-specific section with the info you discovered.
+Step 2: inspect this codebase (stack, package manager, build/test/lint commands, folder structure) and write ./CLAUDE.md based on the template. Remove sections irrelevant to this repo and add a project-specific section with the info you discovered. Keep the Git Workflow, Session naming and Compact Instructions sections verbatim: they are workflow rules that apply to every repo, never project-specific, so they are never the ones to strip.
 
 Step 3: fetch templates/settings.json from {{REPO}} the same way and write .claude/settings.json. Strip machine-specific entries (absolute paths, the SessionStart bootstrap hook itself) and keep only project-relevant permissions and hooks.
 
