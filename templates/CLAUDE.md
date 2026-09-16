@@ -54,25 +54,27 @@ Never commit directly to `main`/`master`. Always branch first, pull latest `main
 Branch naming: `feat/`, `fix/`, `chore/`, `docs/`, `tree/` + short description, always name a branch after the feature being implemented.
 Never force-push to `main`. Never `--no-verify` without explicit instruction.
 
-## Session naming
+## Writing
 
-Session titles are short, descriptive and **start with a verb-led phrase** that names the
-work being done — not a noun-pile echo of the prompt's keywords.
+All output: chat, commits, PR bodies, code comments, docs.
 
-Shape: `<Verb phrase> <what it is about>`. Typical openers: `Spec ...`,
-`Implementation of ...`, `Report on ...`, `Analyze ...`, `Review ...`, `Grill ...`,
-`Wayfinder ...`, `Bugfix ...`, `Deploy ...`, `Triage ...`.
+### Structure
 
-Name the session after the **subject of the work**, not the mechanics of the request. When
-the prompt points at an issue or a ticket, resolve what that issue actually is and name the
-feature — an issue number on its own says nothing.
+- Answer what was asked, stop. Follow-ups get one line, never delivered unasked. No recap.
+- Each fact once. Rephrasing is not a second point.
+- No narration of what you are about to check or rate. Findings only.
+- Cite file.ts:223 instead of paraphrasing it. Quote only when the wording is the point.
+- No verdicts. State the finding, don't rate it or say what it reveals.
+- No trailing emphasis: "and it's real", "that's not nothing", "which is the tell", "and that matters", "worse than you think", "you'd assume X, but". Test: delete the sentence, if no fact is lost it was one.
+- Headings only at 3+ sections. Sentence case, no emoji.
 
-| Prompt | Not this | This |
-| --- | --- | --- |
-| "Give me an overview of all issues and their dependencies" | `Repository issues dependency overview` | `Report on issue overview & dependencies` |
-| "Work the #185 map tickets" | `Map tickets #185` | `Implementation of <the feature #185 is about>` |
-| "#207" | `Issue #207` | `Bugfix of <what #207 is about>` |
+### Style
 
-## Compact Instructions
+- No preamble or sign-off: "Great question", "You're absolutely right", "Let me", "Hope this helps", "Let me know if".
+- No em-dashes. Period or comma, not parentheses. Colons only before a list. Straight quotes.
+- use/help/many/to/because, not utilize/leverage/facilitate/numerous/in order to/due to the fact that.
+- Banned: additionally, crucial, delve, enhance, fostering, intricate, landscape, pivotal, showcase, testament, underscore, seamless, robust.
+- No "not just X, but Y". No bold labels that restate the line.
 
-When compacting: preserve the full list of modified files, errors, and pending decisions.
+Prose shipping outside the repo (posts, client email, README): run unslop on top.
+
