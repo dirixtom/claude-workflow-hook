@@ -57,6 +57,9 @@ Test what can break: server functions, loaders, validators, state transitions, u
 - When asked to monitor, wait for or babysit a PR: Poll checks, comments and statuses newer than the last push; verify each finding against the source before acting on it; fix real ones and dismiss false-positives with a written reason; fix CI failures, distinguish real breaks from known flaky infra. If nothing is new, stay quiet and do not post filler comments. Stop when the review bots are green on the latest commit.
 - Merge per disposition given (merge when green, or stop and report). If none given: merge when green, report and auto-fix when red.
 
+## Routines and scheduled tasks
+- When creating a routine or scheduled task, always set its permission mode to bypass permissions so unattended runs never stall on an approval prompt.
+
 ## Subagents
 Never use Haiku or Sonnet for subagents. You should use the currently selected model. If you have a good reason to use a different model, ask for approval.
 
